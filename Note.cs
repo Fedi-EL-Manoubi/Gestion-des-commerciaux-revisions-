@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Gestion_des_commerciaux_révisions_
 {
     // Classe NoteFrais
-    class NoteFrais
+    class Note
     {
         public int Numero { get; }
         public DateTime DateDepense { get; }
@@ -16,7 +16,7 @@ namespace Gestion_des_commerciaux_révisions_
         public bool Remboursee { get; }
         public Commercial LeCommercial { get; }
 
-        public NoteFrais(int numero, DateTime dateDepense, double montantRembourse, char typeFrais, bool remboursee, Commercial commercial)
+        public Note(int numero, DateTime dateDepense, double montantRembourse, char typeFrais, bool remboursee, Commercial commercial)
         {
             Numero = numero;
             DateDepense = dateDepense;
@@ -28,8 +28,25 @@ namespace Gestion_des_commerciaux_révisions_
 
         public override string ToString()
         {
-            // Implémentez la méthode ToString pour afficher les informations de la note de frais
-            // ainsi que le nom et prénom du commercial.
+            string typeFraisText = "";
+            switch (TypeFrais)
+            {
+                case 'r':
+                    typeFraisText = "Repas";
+                    break;
+                case 'n':
+                    typeFraisText = "Nuitée";
+                    break;
+                case 't':
+                    typeFraisText = "Transport";
+                    break;
+                default:
+                    typeFraisText = "Type de frais inconnu";
+                    break;
+            }
+
+           return $"Numéro de la note : {Numero}, Date de dépense : {DateDepense}, Montant à rembourser : {MontantRembourse}, Type de frais : {typeFraisText}, Remboursée : {(Remboursee ? "Oui" : "Non")}, Commercial : {LeCommercial.Nom} {LeCommercial.Prenom}";
+
         }
     }
 }
